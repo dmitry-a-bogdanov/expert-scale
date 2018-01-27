@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+		<style>
+			.carousel-item > img {
+				width: 50%;
+			}
+			.first {
+				text-align: right;
+			}
+			.last {
+				text-align: left;
+			}
+			html {
+				height: 100%;
+			}
+			body {
+				padding: 10px;
+				min-height: 100%;
+			}
+		</style>
+
+		<script type="application/javascript">
+			WORDS=[
+				[
+					"бесхребетный",
+					"ведомый",
+					"податливый",
+					"уступчивый",
+					"покладистный",
+					"нормальный",
+					"сговорчивый",
+					"мягкий",
+					"гибкий",
+					"стойкий",
+					"упорный",
+					"принципиальный",
+					"непоколебимый",
+					"бескомпромиссный"
+				],
+				[
+					"открытый",
+					"легальный",
+					"тайный",
+					"конспиративный",
+					"закулисный",
+					"подпольный"
+				],
+				[
+					"невежда",
+					"школотрон",
+					"обыватель",
+					"бакалавр",
+					"специалист",
+					"мастер",
+					"эксперт"
+				]
+			]
+			function setWord(id)
+			{
+				var slider = document.getElementById(id)
+				console.log("id = " + id);
+				var word_element = document.getElementById("word_" + id);
+				word_element.innerHTML = WORDS[id][slider.value];
+			}
+			function randomInteger(min, max)
+			{
+				console.log("min=" + min + " max=" + max);
+				return Math.floor(Math.random()*(max + 1 - min)) + min;
+			}
+			window.onload = function()
+			{
+				for(var word_index = 0; word_index != WORDS.length; ++word_index)
+				{
+					var alternatives = WORDS[word_index];
+					var slider = document.getElementById(word_index);
+					first = 0;
+					last = alternatives.length - 1;
+					slider.min = first;
+					slider.max = last;
+					console.log(word_index + ".first");
+					document.getElementById(word_index + ".first").innerHTML = WORDS[word_index][first];
+					document.getElementById(word_index + ".last").innerHTML = WORDS[word_index][last];
+					slider.oninput = (
+						function(i)
+						{
+							return function()
+							{
+								setWord(i);
+							}
+						}
+					)(word_index);
+					option = randomInteger(first, last);
+					console.log("option = " + option);
+					slider.value = option;
+					slider.oninput();
+				}
+			}
+		</script>
+
+		<title>Насколько ты эксперт?</title>
+	</head>
+	<body class="container border-left border-right text-dark font-weight-light">
+		<header>
+			<div class="display-1 text-center text-muted">
+				Насколько ты эксперт?
+			</div>
+		</header>
+
+		<main>
+			<hr />
+
+			<div class="container">
+				<center>
+					<div id="experts_slideshow" class="carousel slide" data-pause="false" data-ride="carousel" data-interval="1500">
+						<div class="carousel-inner"  >
+							<div class="carousel-item active">
+								<img class="rounded" src="slideshow/m.jpg" />
+							</div>
+							<div class="carousel-item">
+								<img class="rounded" src="slideshow/i_and_r.jpg" />
+							</div>
+							<div class="carousel-item">
+								<img class="rounded" src="slideshow/n.jpg" />
+							</div>
+						</div>
+					</div>
+				</center>
+			</div>
+
+			<hr />
+
+
+			<div class="row justify-content-center">
+				<div id="0.first" class="col-4 first"></div>
+				<div class="col-2-auto"><input id="0" type="range"></div>
+				<div id="0.last" class="col-4 last"></div>
+			</div>
+
+			<div class="row justify-content-center">
+				<div id="1.first" class="col-4 first"></div>
+				<div class="col-2-auto"><input id="1" type="range"/></div>
+				<div id="1.last" class="col-4 last">Подпольный</div>
+			</div>
+
+			<div class="row justify-content-center">
+				<div id="2.first" class="col-4 first">мудак</div>
+				<div class="col-2-auto"><input id="2" type="range"/></div>
+				<div id="2.last" class="col-4 last">Эксперт</div>
+			</div>
+
+			<hr />
+
+			<div class="container text-center">
+				<div class="font-weight-bold">Твоя психологическая модель:</div>
+				<div class="display-4">
+					<span id="word_0"></span>
+					<span id="word_1"></span>
+					<span id="word_2"></span>
+				</div>
+			</div>
+		</main>
+	</body>
+</html>
