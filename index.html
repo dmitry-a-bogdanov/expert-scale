@@ -65,13 +65,11 @@
 			function setWord(id)
 			{
 				var slider = document.getElementById(id)
-				console.log("id = " + id);
 				var word_element = document.getElementById("word_" + id);
 				word_element.innerHTML = WORDS[id][slider.value];
 			}
 			function randomInteger(min, max)
 			{
-				console.log("min=" + min + " max=" + max);
 				return Math.floor(Math.random()*(max + 1 - min)) + min;
 			}
 			window.onload = function()
@@ -84,7 +82,6 @@
 					last = alternatives.length - 1;
 					slider.min = first;
 					slider.max = last;
-					console.log(word_index + ".first");
 					document.getElementById(word_index + ".first").innerHTML = WORDS[word_index][first];
 					document.getElementById(word_index + ".last").innerHTML = WORDS[word_index][last];
 					slider.oninput = (
@@ -97,7 +94,6 @@
 						}
 					)(word_index);
 					option = randomInteger(first, last);
-					console.log("option = " + option);
 					slider.value = option;
 					slider.oninput();
 				}
@@ -118,7 +114,7 @@
 
 			<div class="container">
 				<center>
-					<div id="experts_slideshow" class="carousel slide" data-pause="false" data-ride="carousel" data-interval="1500">
+					<div id="experts_slideshow" class="carousel slide" data-pause="false" data-ride="carousel" data-interval="3000">
 						<div class="carousel-inner"  >
 							<div class="carousel-item active">
 								<img class="rounded" src="slideshow/m.jpg" />
