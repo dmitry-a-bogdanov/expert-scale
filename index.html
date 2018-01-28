@@ -24,6 +24,10 @@
 				padding: 10px;
 				min-height: 100%;
 			}
+
+			main {
+				padding-bottom: 2rem;
+			}
 		</style>
 
 		<script type="application/javascript">
@@ -72,7 +76,8 @@
 			{
 				return Math.floor(Math.random()*(max + 1 - min)) + min;
 			}
-			window.onload = function()
+
+			function initSliders()
 			{
 				for(var word_index = 0; word_index != WORDS.length; ++word_index)
 				{
@@ -93,10 +98,24 @@
 							}
 						}
 					)(word_index);
-					option = randomInteger(first, last);
+				}
+			}
+
+			function chooseRandomWords()
+			{
+				for(var word_index = 0; word_index != WORDS.length; ++word_index)
+				{
+					var slider = document.getElementById(word_index);
+					var option = randomInteger(first, last);
 					slider.value = option;
 					slider.oninput();
 				}
+			}
+
+			window.onload = function()
+			{
+				initSliders();
+				chooseRandomWords();
 			}
 		</script>
 
@@ -153,7 +172,7 @@
 
 			<hr />
 
-			<div class="container text-center">
+			<div id="output-block" class="container text-center">
 				<div class="font-weight-bold">Твоя психологическая модель:</div>
 				<div class="display-4">
 					<span id="word_0"></span>
@@ -162,5 +181,10 @@
 				</div>
 			</div>
 		</main>
+
+		<div class="container text-center">
+			<!--button type="button" class="btn btn-primary" onclick="">Да! В точку!</button-->
+			<button type="button" class="btn btn-danger" onclick="chooseRandomWords();">Нет, это не я</button>
+		</div>
 	</body>
 </html>
